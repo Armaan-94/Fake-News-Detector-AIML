@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 50px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        .btn-predict {
+            margin-top: 20px;
+        }
+        .prediction {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .prediction-real {
+            color: green;
+        }
+        .prediction-fake {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center">Fake News Detection</h2>
+    <form method="POST" action="/predict">
+        <div class="mb-3">
+            <label for="article" class="form-label">Enter News Article:</label>
+            <textarea class="form-control" id="article" name="article" rows="6" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-predict">Predict</button>
+    </form>
+
+    {% if prediction %}
+    <div class="mt-4 prediction">
+        <span class="{% if prediction == 'Real' %}prediction-real{% else %}prediction-fake{% endif %}">
+            Prediction: {{ prediction }}
+        </span>
+    </div>
+    <hr>
+    <h5>Article:</h5>
+    <p>{{ article }}</p>
+    {% endif %}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
